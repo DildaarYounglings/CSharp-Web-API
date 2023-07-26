@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CSharp_Web_API.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace CSharp_Web_API.Controllers
 {
@@ -17,10 +19,16 @@ namespace CSharp_Web_API.Controllers
         /// </returns>
         [HttpGet]
         [ProducesResponseType(typeof(User[]), StatusCodes.Status200OK)]
-        public IActionResult httpGetRequest()
-        {
-            var UsersArray = new User[] { new User(0, "Dildaar Abrahams", "prime@gmail.com"),new User(1,"DA political party","da.govt@against.anc")};
+        public IActionResult GetAllUsers()
+        { 
+            var UsersArray = new UserRespository().UsersArray;
             return Ok(UsersArray);
+        }
+
+        [HttpPost]
+        public IActionResult PostNewUser([FromBody] string users)
+        {
+            return Ok();
         }
     }
 }
